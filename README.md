@@ -1,1 +1,3 @@
-# 2023-Software-Engineering-Team-F / Restaurant_Ver2
+# 2023-Software-Engineering-Team-F
+
+Restaurant_Ver2
