@@ -8,13 +8,14 @@ import com.software_engineering.booksys_ver2.booking.presentation.dto.request.Up
 import com.software_engineering.booksys_ver2.booking.presentation.dto.response.BookingListResponse;
 import com.software_engineering.booksys_ver2.booking.presentation.dto.response.BookingResponse;
 import com.software_engineering.booksys_ver2.customer.application.CustomerService;
-import com.software_engineering.booksys_ver2.restaurant.application.RestaurantService;
 import com.software_engineering.booksys_ver2.table.application.TableService;
+import com.software_engineering.booksys_ver2.table.domain.Table;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,35 +23,36 @@ public class BookingController {
 
   private final BookingService bookingService;
   private final CustomerService customerService;
-  private final RestaurantService restaurantService;
   private final TableService tableService;
 
   /**
    * 온라인 예약 생성
    */
   @PostMapping("/reservation")
-  public ResponseEntity<Void> createReservation(@RequestBody CreateReservationRequest request) {
+  public ResponseEntity<Long> createReservation(@RequestBody CreateReservationRequest request) {
 
     Long customerId = customerService.createCustomer(request.getName(), request.getPhoneNumber());
-    Long tableId = tableService.createTable(request.getTableNumber(), request.getCustomerCount());
+    Table table = tableService.findByTableNumber(request.getTableNumber());
+    Long tableId = table.getId();
 
-    bookingService.createReservation(customerId, 1L, tableId, request.getBookingDateTime());
+    Long reservationId = bookingService.createReservation(customerId, 1L, tableId, request.getBookingDateTime(), request.getCovers());
 
-    return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(reservationId);
   }
 
   /**
    * 현장 에약 생성
    */
   @PostMapping("/walkIn")
-  public ResponseEntity<Void> createWalkIn(@RequestBody CreateWalkInRequest request) {
+  public ResponseEntity<Long> createWalkIn(@RequestBody CreateWalkInRequest request) {
 
     Long customerId = customerService.createCustomer(request.getName(), request.getPhoneNumber());
-    Long tableId = tableService.createTable(request.getTableNumber(), request.getCustomerCount());
+    Table table = tableService.findByTableNumber(request.getTableNumber());
+    Long tableId = table.getId();
 
-    bookingService.createWalkIn(customerId, 1L, tableId);
+    Long walkInId = bookingService.createWalkIn(customerId, 1L, tableId, request.getCovers());
 
-    return ResponseEntity.noContent().build();
+    return ResponseEntity.ok(walkInId);
   }
 
   /**
@@ -63,7 +65,7 @@ public class BookingController {
 
     return new BookingResponse(booking.getId(), booking.getCustomer().getName(),
         booking.getCustomer().getPhoneNumber(), booking.getTable().getTableNumber(),
-        booking.getTable().getCustomerCount(), booking.getBookingStatus(),
+        booking.getCovers(), booking.getBookingStatus(),
         booking.getBookingDateTime(), booking.getArrivalDateTime());
   }
 
@@ -79,9 +81,9 @@ public class BookingController {
         bookingList.stream().map(booking -> new BookingResponse(
             booking.getId(), booking.getCustomer().getName(),
             booking.getCustomer().getPhoneNumber(), booking.getTable().getTableNumber(),
-            booking.getTable().getCustomerCount(), booking.getBookingStatus(),
+            booking.getCovers(), booking.getBookingStatus(),
             booking.getBookingDateTime(), booking.getArrivalDateTime()
-        )).toList();
+        )).collect(Collectors.toList());
 
     return new BookingListResponse<>(bookingListResponse.size(), bookingListResponse);
   }
@@ -94,7 +96,7 @@ public class BookingController {
 
     Booking booking = bookingService.findById(bookingId);
     bookingService.updateBooking(bookingId, request.getTableNumber(),
-        request.getCustomerCount(), request.getBookingDateTime());
+        request.getCovers(), request.getBookingDateTime());
 
     return ResponseEntity.noContent().build();
   }

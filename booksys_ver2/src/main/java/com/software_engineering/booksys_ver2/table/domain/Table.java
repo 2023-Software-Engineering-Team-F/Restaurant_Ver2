@@ -17,20 +17,22 @@ public class Table {
 
   @Id
   @GeneratedValue
+  @Column(name="table_id")
   private Long id;
 
   private int tableNumber; // 테이블 번호
 
-  private int customerCount; // 식사 인원
+  private int places; // 테이블 좌석 수
 
   @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "booking_id")
   private Booking booking; // 테이블에 할당된 예약
 
-  public static Table createTable(int tableNumber, int customerCount) {
+  public static Table createTable(int tableNumber, int places) {
 
     Table table = new Table();
     table.setTableNumber(tableNumber);
-    table.setCustomerCount(customerCount);
+    table.setPlaces(places);
 
     return table;
   }

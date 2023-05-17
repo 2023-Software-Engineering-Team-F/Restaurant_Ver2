@@ -16,7 +16,7 @@ public class CreateReservationRequest {
 
   private int tableNumber;
 
-  private int customerCount;
+  private int covers;
 
   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
   private LocalDateTime bookingDateTime;

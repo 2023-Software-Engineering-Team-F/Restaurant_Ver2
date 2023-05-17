@@ -14,9 +14,9 @@ public class TableService {
   private final TableRepository tableRepository;
 
   @Transactional
-  public Long createTable(int tableNumber, int customerCount) {
+  public Long createTable(int tableNumber, int places) {
 
-    Table table = Table.createTable(tableNumber, customerCount);
+    Table table = Table.createTable(tableNumber, places);
     tableRepository.save(table);
 
     return table.getId();

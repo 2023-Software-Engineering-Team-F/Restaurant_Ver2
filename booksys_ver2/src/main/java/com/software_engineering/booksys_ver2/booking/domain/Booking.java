@@ -13,21 +13,28 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter
+@javax.persistence.Table(name = "bookings")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="DTYPE")
 public abstract class Booking {
 
   @Id @GeneratedValue
+  @Column(name="booking_id")
   private Long id;
 
   private LocalDateTime bookingDateTime; // 예약 날짜 및 시간
 
   private LocalDateTime arrivalDateTime; // 고객 도착 날짜 및 시간
 
+  private int covers; // 예약 인원
+
+  private String password; // 예약 비밀번호
+
   @Enumerated(EnumType.STRING)
   private BookingStatus bookingStatus;
 
   @OneToOne(fetch = LAZY)
+  @JoinColumn(name = "table_id")
   private Table table; // 예약한 테이블
 
   @ManyToOne(fetch = LAZY)

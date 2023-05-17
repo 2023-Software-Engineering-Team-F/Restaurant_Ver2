@@ -12,12 +12,13 @@ import java.util.Vector;
 
 @Entity
 @Getter @Setter
+@javax.persistence.Table(name = "restaurants")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant {
 
   @Id
   @GeneratedValue
-
+  @Column(name="restaurant_id")
   private Long id;
 
   private int tableQuantity; // 해당 레스토랑의 테이블 갯수

@@ -19,7 +19,8 @@ public class BookingResponse {
 
   private int tableNumber;
 
-  private int customerCount;
+  private int covers
+      ;
 
   private BookingStatus bookingStatus;
 

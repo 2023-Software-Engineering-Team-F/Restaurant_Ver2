@@ -13,8 +13,8 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
+@javax.persistence.Table(name = "reservations")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Access(AccessType.FIELD)
 @DiscriminatorValue("RESERVATION")
@@ -26,7 +26,7 @@ public class Reservation extends Booking {
     details.append(" ");
     details.append(getCustomer().getPhoneNumber());
     details.append(" (");
-    details.append(getTable().getCustomerCount());
+    details.append(getTable().getPlaces());
     details.append("명)");
     if (getArrivalDateTime() != null) {
       details.append(" [");
@@ -37,7 +37,7 @@ public class Reservation extends Booking {
     return details.toString();
   }
 
-  public static Reservation createReservation(Customer customer, Restaurant restaurant, Table table, LocalDateTime bookingDateTime) {
+  public static Reservation createReservation(Customer customer, Restaurant restaurant, Table table, LocalDateTime bookingDateTime, int covers) {
 
     Reservation reservation = new Reservation();
     reservation.setBookingStatus(BookingStatus.BOOK);
@@ -46,6 +46,7 @@ public class Reservation extends Booking {
     reservation.setCustomer(customer);
     reservation.setRestaurant(restaurant);
     reservation.setTable(table);
+    reservation.setCovers(covers);
 
     return reservation;
   }
