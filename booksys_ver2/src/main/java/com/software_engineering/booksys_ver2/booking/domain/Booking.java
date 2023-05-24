@@ -18,7 +18,7 @@ import static javax.persistence.FetchType.LAZY;
 @DiscriminatorColumn(name="DTYPE")
 public abstract class Booking {
 
-  @Id @GeneratedValue
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="booking_id")
   private Long id;
 

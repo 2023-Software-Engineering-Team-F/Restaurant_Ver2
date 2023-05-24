@@ -15,8 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Table {
 
-  @Id
-  @GeneratedValue
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name="table_id")
   private Long id;
 
