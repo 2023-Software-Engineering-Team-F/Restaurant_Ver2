@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>RMM</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="restaurant-name">F조 레스토랑</div>
+
+        <form>
+            <label for="date-input">날짜 선택</label>
+            <input type="date" id="date-input">
+            <input type="submit" class="search-button" value="조회">
+        </form>
+
+        <div class="table-wrapper">
+            <table id="reservation-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="reservation-block" class="table-cell"></tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button class="button" onclick="location.href = './reservation' ">예약</button>
+            <button class="button" onclick="location.href = './walkin' ">현장접수</button>
+            <button class="button" onclick="location.href = './cancel-change' ">예약 취소/변경</button>
+            <!-- <button class="button" onclick="location.href = './cancel-change.html' ">예약변경</button>
+            <button class="button" onclick="location.href = './shiftTable.html' ">좌석이동</button> -->
+        </div>
+    </div>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>

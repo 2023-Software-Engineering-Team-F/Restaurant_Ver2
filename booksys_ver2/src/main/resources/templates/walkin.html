@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>현장 점수</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>현장접수하기</h1>
+        <form>
+            <div class="timeWrapper">
+                <label>입장 시간</label>
+                <select name="hour" class="hour" required></select>
+                <select name="minute" class="minute" required></select>
+            </div>
+            <label for="people">인원수</label>
+            <input type="number" id="people" name="people" min="1" max="10" required>
+            <label for="table-num">테이블 번호</label>
+            <select name="table-num" id="table-num" required>
+                <input type="submit" class="button confirm-button" value="완료">
+        </form>
+        <button class="back-button" onclick="location.href = './MainTable.html' ">뒤로가기</button>
+    </div>
+    <script src="/js/getReservation.js"></script>
+    <script src="/js/genTime.js"></script>
+</body>
+
+</html>

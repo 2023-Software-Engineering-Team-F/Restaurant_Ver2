@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>예약 페이지</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <title>취소/변경</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>예약 조회하기</h1>
+        <form>
+            <label for="name">예약자명</label>
+            <input type="text" id="name" name="name" required>
+            <input type="submit" class="search-button" value="조회">
+            <!-- submit후 input content 남아있게 JS 추가 -->
+        </form>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <th>날짜</th>
+                    <th>시간</th>
+                    <th>테이블</th>
+                    <th>인원</th>
+                    <th>작업</th>
+                </thead>
+                <tbody id="reservation-list"></tbody>
+            </table>
+        </div>
+
+        <button class="back-button" onclick="location.href = './MainTable.html' ">뒤로가기</button>
+    </div>
+    <!-- <script src="../JS/app.js"></script> -->
+    <script src="/js/getReservation.js"></script>
+</body>
+
+</html>
