@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,10 +70,12 @@ public class BookingController {
 
     Booking booking = bookingService.findById(bookingId);
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     return new BookingResponse(booking.getId(), booking.getCustomer().getName(),
         booking.getCustomer().getPhoneNumber(), booking.getTable().getTableNumber(),
         booking.getCovers(), booking.getBookingStatus(),
-        booking.getBookingDateTime(), booking.getArrivalDateTime());
+        booking.getBookingDateTime().format(formatter), booking.getArrivalDateTime().format(formatter));
   }
 
   /**
@@ -84,12 +87,14 @@ public class BookingController {
 
     List<Booking> bookingList = bookingService.findAll();
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     List<BookingResponse> bookingListResponse =
         bookingList.stream().map(booking -> new BookingResponse(
             booking.getId(), booking.getCustomer().getName(),
             booking.getCustomer().getPhoneNumber(), booking.getTable().getTableNumber(),
             booking.getCovers(), booking.getBookingStatus(),
-            booking.getBookingDateTime(), booking.getArrivalDateTime()
+            booking.getBookingDateTime().format(formatter), booking.getArrivalDateTime().format(formatter)
         )).collect(Collectors.toList());
 
     return new BookingListResponse<>(bookingListResponse.size(), bookingListResponse);

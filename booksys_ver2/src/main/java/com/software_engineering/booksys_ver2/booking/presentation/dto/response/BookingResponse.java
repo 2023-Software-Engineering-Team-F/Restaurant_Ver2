@@ -24,9 +24,7 @@ public class BookingResponse {
 
   private BookingStatus bookingStatus;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-  private LocalDateTime bookingDateTime;
+  private String bookingDateTime;
 
-  @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-  private LocalDateTime arrivalDateTime;
+  private String arrivalDateTime;
 }
